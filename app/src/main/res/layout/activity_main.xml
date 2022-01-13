@@ -16,12 +16,12 @@
         android:queryHint="Milwaukee, WI"
         />
 
-    <Button
-        android:id="@+id/buttonSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        />
+<!--    <Button-->
+<!--        android:id="@+id/buttonSearch"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Search"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/textViewCityName"
