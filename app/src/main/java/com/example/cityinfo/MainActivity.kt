@@ -16,15 +16,15 @@ import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var searchCityName : SearchView
     lateinit var tvCityName : TextView
     lateinit var tvCityLat : TextView
     lateinit var tvCityLong : TextView
-    lateinit var rawCodeData : TextView
 
-    lateinit var searchCityName : SearchView
-//    lateinit var buttonSearch : Button
+    // ======== FOR TESTING ONLY =========
+//    lateinit var rawCodeData : TextView
+    // ===================================
 
-//    val LOCATION_FINE_PERMISSION_CODE : Int = 1
     val LOCATION_COARSE_PERMISSION_CODE : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         tvCityName = findViewById(R.id.textViewCityName)
         tvCityLat = findViewById(R.id.textViewLat)
         tvCityLong = findViewById(R.id.textViewLong)
-        rawCodeData = findViewById(R.id.rawCodeData)
+
+        // ======== FOR TESTING ONLY =========
+//        rawCodeData = findViewById(R.id.rawCodeData)
+        // ===================================
 
         searchCityName = findViewById(R.id.searchCity)
         searchCityName.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -49,16 +52,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-//        buttonSearch = findViewById(R.id.buttonSearch)
-//        buttonSearch.setOnClickListener {
-//            getLocationInfo()
-//        }
-
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
         ) {
-            // do some stuff
             requestPermission(
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
                 LOCATION_COARSE_PERMISSION_CODE,
@@ -67,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun requestPermission(
+    private fun requestPermission(
         requestedPermission: String,
         PERMISSION_CODE: Int,
         message: String
@@ -100,12 +97,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getLocationInfo(cityName: String?) {
-//        tvCityName.text = cityName
         val geocoder = Geocoder(this, Locale.getDefault())
         val location = geocoder.getFromLocationName(
             cityName,
             1
         )[0]
-        rawCodeData.text = location.toString()
+
+        // ========== TESTING ONLY ============
+        // using this to read location data
+//        rawCodeData.text = location.toString()
+        // ====================================
+
+        tvCityName.text = location.getAddressLine(0)
+        tvCityLat.text = location.latitude.toString()
+        tvCityLong.text = location.longitude.toString()
     }
 }
