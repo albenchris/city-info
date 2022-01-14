@@ -44,4 +44,12 @@
         android:text="Longitude: -87.9064736"
         />
 
+    <TextView
+        android:id="@+id/rawCodeData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+
 </LinearLayout>

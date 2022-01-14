@@ -2,6 +2,7 @@ package com.example.cityinfo
 
 import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import java.util.*
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvCityName : TextView
     lateinit var tvCityLat : TextView
     lateinit var tvCityLong : TextView
+    lateinit var rawCodeData : TextView
 
     lateinit var searchCityName : SearchView
 //    lateinit var buttonSearch : Button
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         tvCityName = findViewById(R.id.textViewCityName)
         tvCityLat = findViewById(R.id.textViewLat)
         tvCityLong = findViewById(R.id.textViewLong)
+        rawCodeData = findViewById(R.id.rawCodeData)
 
         searchCityName = findViewById(R.id.searchCity)
         searchCityName.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -96,7 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getLocationInfo(cityName: String?) {
-        tvCityName.text = cityName
-
+//        tvCityName.text = cityName
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val location = geocoder.getFromLocationName(
+            cityName,
+            1
+        )[0]
+        rawCodeData.text = location.toString()
     }
 }
